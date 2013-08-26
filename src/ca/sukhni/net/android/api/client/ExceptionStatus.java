@@ -1,8 +1,25 @@
 package ca.sukhni.net.android.api.client;
 
+/**
+ * list of exception that can happen when executing the http request
+ * <li>CLIENT_PROTOCOL_EXCEPTION</li>
+ * <li>UNRESOLVED_ADDRESS_EXCEPTION</li>
+ * <li>UNKNOWN_HOST_EXCEPTION</li>
+ * <li>NO_ROUTE_TO_HOST_EXCEPTION</li>
+ * <li>PORT_UNREACHABLE_EXCEPTION</li>
+ * <li>CONNECT_TIMEOUT_EXCEPTION</li>
+ * <li>SOCKET_TIMEOUT_EXCEPTION</li>
+ * <li>CONNECTION_CLOSED_EXCEPTION</li>
+ * <li>FILE_NOT_FOUND_EXCEPTION</li>
+ * <li>UNSUPPORTED_ENCODING_EXCEPTION</li>
+ * <li>IO_EXCEPTION</li>
+ * <li>EXCEPTION</li>
+ * @author malsukhni
+ *
+ */
 public enum ExceptionStatus
 {
-	CLIENT_PROTOCOL_EXCEPTION(0x0001,"Signals an error in the HTTP protocol. "),
+	CLIENT_PROTOCOL_EXCEPTION(0x0001,"Signals an error in the HTTP protocol."),
 	UNRESOLVED_ADDRESS_EXCEPTION(0x0002,"Unchecked exception thrown when an attempt is made to invoke a network operation upon an unresolved socket address."),
 	UNKNOWN_HOST_EXCEPTION(0x0004,"Thrown to indicate that the IP address of a host could not be determined."),
 	NO_ROUTE_TO_HOST_EXCEPTION(0x0008,"Signals that an error occurred while attempting to connect a socket to a remote address and port. Typically, the remote host cannot be reached because of an intervening firewall, or if an intermediate router is down."),

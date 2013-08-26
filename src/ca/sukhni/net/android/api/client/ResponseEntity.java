@@ -2,6 +2,11 @@ package ca.sukhni.net.android.api.client;
 
 import org.apache.http.HeaderElement;
 
+/**
+ * interface for response entity
+ * @author malsukhni
+ *
+ */
 public interface ResponseEntity
 {
 	public abstract long getContentLength();

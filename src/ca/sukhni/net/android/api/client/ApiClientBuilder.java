@@ -2,20 +2,95 @@ package ca.sukhni.net.android.api.client;
 
 interface BuilderInterface
 {
+	/**
+	 * set the http request method, See {@link Method}
+	 * @param method to set
+	 * @return
+	 */
 	public abstract ApiClientBuilder setMethod(Method method);
+	/**
+	 * set base uri. 
+	 * <p>i.e. http://www.yoursite.com/path/path</P>
+	 * @return
+	 */
 	public abstract ApiClientBuilder setBaseUri(String baseUri);
+	/**
+	 * set the connection timeout
+	 * @param connectionTimeout the connectionTimeout to set
+	 * @return
+	 */
 	public abstract ApiClientBuilder setConnectionTimeout(int connectionTimeout);
+	/**
+	 * set the socket timeout
+	 * @param socketTimeout the socketTimeout to set
+	 * @return
+	 */
 	public abstract ApiClientBuilder setSocketTimeout(int socketTimeout);
+	/**
+	 * set connection timeout retry count, default is zero
+	 * @param connectionTimeoutRetry the connectionTimeoutRetry to set
+	 * @return
+	 */
 	public abstract ApiClientBuilder setConnectionTimeoutRetry(int connectionTimeoutRetry);
+	/**
+	 * set socket timeout retry count, default is zero
+	 * @param socketTimeoutRetry the socketTimeoutRetry to set
+	 * @return
+	 */
 	public abstract ApiClientBuilder setSocketTimeoutRetry(int socketTimeoutRetry);
+	/**
+	 * set the connection timeout retry flag
+	 * @param enableConntectionTimeoutRetry the enableConntectionTimeoutRetry to set
+	 * @return
+	 */
 	public abstract ApiClientBuilder setEnableConntectionTimeoutRetry(boolean enableConntectionTimeoutRetry);
+	/**
+	 * set the socket timeout retry flag
+	 * @param enableSocketTimeoutRetry the enableSocketTimeoutRetry to set
+	 * @return
+	 */
 	public abstract ApiClientBuilder setEnableSocketTimeoutRetry(boolean enableSocketTimeoutRetry);
+	/**
+	 * add path to the request uri, the path can consist of one or more elements
+	 * i.e. addPath("route"), addPath("route/to/home")
+	 * null or empty paths will not be added
+	 * @param path to add
+	 * @return
+	 */
 	public abstract ApiClientBuilder addPath(String path);
+	/**
+	 * add paths to the request uri, the path can consist of one or more elements
+	 * i.e. addPaths("route","to",home"), addPaths("route/to/","home")
+	 * null or empty paths will not be added
+	 * @param paths to be added
+	 * @return
+	 */
 	public abstract ApiClientBuilder addPaths(String paths);
+	/**
+	 * add parameter to the request
+	 * @param name the parameter name
+	 * @param value the parameter value
+	 * @return
+	 */
 	public abstract ApiClientBuilder addParam(String name, String value);
+	/**
+	 * add header to the request
+	 * @param name the header name
+	 * @param value the header value
+	 * @return
+	 */
 	public abstract ApiClientBuilder addHeader(String name, String value);
+	/**
+	 * add text to the request content
+	 * @param name the content name
+	 * @param value the content value
+	 * @return
+	 */
 	public abstract ApiClientBuilder addTextContent(String name, String value);
-	
+	/**
+	 * build the api call
+	 * @return
+	 */
 	public ApiClient build();
 	
 }

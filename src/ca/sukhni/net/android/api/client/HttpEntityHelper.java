@@ -12,7 +12,7 @@ import ca.sukhni.net.android.logger.Logger;
 public class HttpEntityHelper
 {
 	/**
-	 * 
+	 * read the response entity as string
 	 * @param entity
 	 * @return
 	 * @throws IllegalStateException

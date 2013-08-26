@@ -1,3 +1,20 @@
+/**
+ 	Android API Client: A simple and easy way to make an API call for android developers
+    Copyright (C) 2013  Moh. Alsukhni
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ **/
 package ca.sukhni.net.android.api.client;
 
 import java.io.FileNotFoundException;
@@ -53,6 +70,12 @@ abstract class RestClient extends BaseClient
     protected ResponseEntity							mResponseEntity				= null;
     protected long										mReponseContentLength		= -1;
     
+    /**
+     * Rest client constructor: the constructor will an empty parameters, headers, content, and paths list.
+     * the default http method -if not set- is GET
+     * the default char set type -if not set- is (UTF-8)
+     * the default content type is - if not set- (application/xml)
+     */
     public RestClient()
     {
     	mMethod = Method.GET;
@@ -64,22 +87,36 @@ abstract class RestClient extends BaseClient
         mCharSetType = "UTF-8";
         mContentType = MediaType.APPLICATION_XML;
     }
-    
+    /**
+     * Get the http request method. See {@link Method}
+     * i.e. Method.GET
+     * @return method 
+     */
 	public Method getMethod()
 	{
 		return mMethod;
 	}
-
+	/**
+	 * set the http request method, See {@link Method}
+	 * @param method to set
+	 */
 	public void setMethod(Method method)
 	{
 		this.mMethod = method;
 	}
-
+	/**
+	 * get base Uri of the request.
+	 * @return string value of the Uri
+	 */
 	public String getBaseUri()
 	{
 		return mBaseUri;
 	}
-
+	/**
+	 * set base uri. 
+	 * <p>i.e. http://www.yoursite.com/path/path</P>
+	 * @param baseUri
+	 */
 	public void setBaseUri(String baseUri)
 	{
 		this.mBaseUri = baseUri;
@@ -89,7 +126,9 @@ abstract class RestClient extends BaseClient
 	protected void addPath(String path)
 	{
 		if(path!=null && path.trim().length()!=0)
+		{
 			mPath.add(path.trim());
+		}
 	}
 
 	@Override
@@ -99,7 +138,7 @@ abstract class RestClient extends BaseClient
 		{
 			for(int i=0;i<paths.length;i++)
 			{
-				mPath.add(paths[i]);
+				addPath(paths[i]);
 			}
 		}
 	}
@@ -233,7 +272,6 @@ abstract class RestClient extends BaseClient
 			}
 		}
 	}
-
 	private void executeRequest(HttpUriRequest request, String url) throws UnresolvedAddressException,UnknownHostException,
 	NoRouteToHostException,ConnectTimeoutException,SocketTimeoutException,ConnectionClosedException,FileNotFoundException,IOException,Exception
 	{

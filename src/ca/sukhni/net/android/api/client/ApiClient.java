@@ -13,14 +13,34 @@ import org.apache.http.conn.ConnectTimeoutException;
 
 import ca.sukhni.net.android.logger.Logger;
 import android.os.AsyncTask;
-
+/**
+ * 
+ * @author malsukhni
+ *
+ */
 public class ApiClient extends RestClient
 {
+	/**
+	 * execute the request, this is blocking code.
+	 * @throws UnresolvedAddressException
+	 * @throws NoRouteToHostException
+	 * @throws ConnectTimeoutException
+	 * @throws SocketTimeoutException
+	 * @throws UnsupportedEncodingException
+	 * @throws UnknownHostException
+	 * @throws ConnectionClosedException
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws Exception
+	 */
 	public void executeAndBlock() throws UnresolvedAddressException, NoRouteToHostException, ConnectTimeoutException, SocketTimeoutException, UnsupportedEncodingException, UnknownHostException, ConnectionClosedException, FileNotFoundException, IOException, Exception
 	{
 		execute();
 	}
-
+	/**
+	 * execute the request using thread
+	 * @param handler an ApiClientHandler to handle the result
+	 */
 	public void executeOnThread(final ApiClientHandler handler)
 	{
 		new Thread(new Runnable()
@@ -138,11 +158,19 @@ public class ApiClient extends RestClient
 		}).start();
 	}
 
+	/**
+	 * execute the request using async task, result will be handled when onPostExecute get called 
+	 * @param handler an ApiClientHandler to handle the result
+	 */
 	public void executeOnAsyncTask(ApiClientHandler handler)
 	{
 		new ExecuterTask(handler).execute();
 	}
-	
+	/**
+	 * 
+	 * @author malsukhni
+	 *
+	 */
 	private class ExecuterTask extends AsyncTask<Void, Void, Integer>
 	{
 		public final String EXECUTER_TASK_TAG = ExecuterTask.class.getSimpleName();
