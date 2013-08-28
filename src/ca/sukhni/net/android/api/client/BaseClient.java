@@ -32,11 +32,11 @@ public abstract class BaseClient
 	 */
 	protected abstract void addHeader(String name, String value);
 	/**
-	 * add text to the request content
+	 * set text to the request content
 	 * @param name the content name
 	 * @param value the content value
 	 */
-	protected abstract void addTextContent(String name, String value);
+	protected abstract void setTextContent(String value);
 	/**
 	 * add path to the request uri, the path can consist of one or more elements
 	 * i.e. addPath("route"), addPath("route/to/home")

@@ -1,5 +1,12 @@
 package ca.sukhni.net.android.api.client;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import org.apache.http.NameValuePair;
+
+import ca.sukhni.net.android.logger.Logger;
+
 interface BuilderInterface
 {
 	/**
@@ -86,7 +93,7 @@ interface BuilderInterface
 	 * @param value the content value
 	 * @return
 	 */
-	public abstract ApiClientBuilder addTextContent(String name, String value);
+	public abstract ApiClientBuilder setTextContent(String value);
 	/**
 	 * build the api call
 	 * @return
@@ -131,9 +138,9 @@ public class ApiClientBuilder implements BuilderInterface
 	}
 
 	@Override
-	public ApiClientBuilder addTextContent(String name, String value)
+	public ApiClientBuilder setTextContent(String value)
 	{
-		apiClient.addTextContent(name, value);
+		apiClient.setTextContent(value);
 		return this;
 	}
 	@Override
@@ -188,6 +195,67 @@ public class ApiClientBuilder implements BuilderInterface
 	{
 		apiClient.addPaths(paths);
 		return this;
+	}
+	
+	@Override
+	public String toString()
+	{
+		String combine = "Base Uri: " + apiClient.getBaseUri() + " \n"
+				+ "Paths: " + strPaths() + " \n"
+				+ "Params: " + strParameters() + "\n";
+		return combine;
+	}
+	
+	private String strParameters()
+	{
+		// add parameters
+		String combinedParams = "";
+		if (!apiClient.getParams().isEmpty())
+		{
+			combinedParams += "?";
+			for (NameValuePair p : apiClient.getParams())
+			{
+				String paramString;
+				try
+				{
+					paramString = p.getName() + "=" + URLEncoder.encode(p.getValue(), apiClient.getCharSetType());
+					if (combinedParams.length() > 1)
+					{
+						combinedParams += "&" + paramString;
+					}
+					else
+					{
+						combinedParams += paramString;
+					}
+				}
+				catch (UnsupportedEncodingException e)
+				{
+					Logger.printStackTrace(e);
+					return "";
+				}
+			}
+			return combinedParams;
+		}
+		return "";
+	}
+	private String strPaths()
+	{
+		if(apiClient.getPath()!=null)
+		{
+			StringBuilder pathBuilder = new StringBuilder();
+			int size = apiClient.getPath().size();
+			for(int i=0;i<size;i++)
+			{
+				String path = apiClient.getPath().get(i).replace("/", "").replace("\\", "");
+				if(i<size) pathBuilder.append("/");
+				pathBuilder.append(path);
+			}
+			return pathBuilder.toString();
+		}
+		else
+		{
+			return "";
+		}
 	}
 	
 }

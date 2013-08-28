@@ -57,7 +57,7 @@ abstract class RestClient extends BaseClient
 	
 	protected ArrayList<NameValuePair> 					mParams						= null;
     protected ArrayList<NameValuePair> 					mHeaders					= null;
-    protected ArrayList<NameValuePair> 					mContent					= null;
+    protected String 									mContent					= null;
     protected ArrayList<String>							mPath						= null;
     protected Method									mMethod						= null;
     private String 										fullUrl						= null;
@@ -81,7 +81,6 @@ abstract class RestClient extends BaseClient
     	mMethod = Method.GET;
     	mParams = new ArrayList<NameValuePair>();
         mHeaders = new ArrayList<NameValuePair>();
-        mContent = new ArrayList<NameValuePair>();
         mPath = new ArrayList<String>();
         
         mCharSetType = "UTF-8";
@@ -122,6 +121,43 @@ abstract class RestClient extends BaseClient
 		this.mBaseUri = baseUri;
 	}
 
+	/**
+	 * @return the params
+	 */
+	protected ArrayList<NameValuePair> getParams()
+	{
+		return mParams;
+	}
+	/**
+	 * @return the headers
+	 */
+	protected ArrayList<NameValuePair> getHeaders()
+	{
+		return mHeaders;
+	}
+	/**
+	 * @return the paths
+	 */
+	protected ArrayList<String> getPath()
+	{
+		return mPath;
+	}
+	
+	/**
+	 * @return the charSetType
+	 */
+	protected String getCharSetType()
+	{
+		return mCharSetType;
+	}
+	/**
+	 * @param CharSetType the charSetType to set
+	 */
+	protected void setmCharSetType(String charSetType)
+	{
+		this.mCharSetType = charSetType;
+	}
+	
 	@Override
 	protected void addPath(String path)
 	{
@@ -160,10 +196,10 @@ abstract class RestClient extends BaseClient
 	}
 
 	@Override
-	protected void addTextContent(String name, String value)
+	protected void setTextContent(String value)
 	{
-		mContent.add(new BasicNameValuePair(name, value));
-        Logger.debug("RestClient.AddTextContent(\"" + name + "\",\"" + value + "\")");
+		mContent = value;
+        Logger.debug("RestClient.setTextContent("+ value + ")");
 	}
 	
 	@Override
@@ -228,15 +264,14 @@ abstract class RestClient extends BaseClient
 				fullUrl = mBaseUri + pathBuilder.toString() + combinedParams;
 				Logger.debug("RestClient POST: " + fullUrl);
 				HttpPost request = new HttpPost(fullUrl);
-	
 				// add headers
 				for (NameValuePair h : mHeaders)
 				{
 					request.addHeader(h.getName(), h.getValue());
 				}
-				if (mContent.size() > 0)
+				if (mContent!=null)
 				{
-					StringEntity entity = new StringEntity(mContent.get(0).getValue().toString(), mCharSetType);
+					StringEntity entity = new StringEntity(mContent, mCharSetType);
 					entity.setContentEncoding(mCharSetType);
 					entity.setContentType("application/xml");
 					request.setEntity(entity);
@@ -253,6 +288,14 @@ abstract class RestClient extends BaseClient
 				for (NameValuePair h : mHeaders)
 				{
 					request.addHeader(h.getName(), h.getValue());
+				}
+				
+				if (mContent!=null)
+				{
+					StringEntity entity = new StringEntity(mContent, mCharSetType);
+					entity.setContentEncoding(mCharSetType);
+					entity.setContentType("application/xml");
+					request.setEntity(entity);
 				}
 				executeRequest(request, fullUrl);
 				break;
