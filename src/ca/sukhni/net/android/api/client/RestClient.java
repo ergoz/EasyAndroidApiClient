@@ -153,9 +153,24 @@ abstract class RestClient extends BaseClient
 	/**
 	 * @param CharSetType the charSetType to set
 	 */
-	protected void setmCharSetType(String charSetType)
+	protected void setCharSetType(String charSetType)
 	{
 		this.mCharSetType = charSetType;
+	}
+	
+	/**
+	 * @return the content
+	 */
+	protected String getContent()
+	{
+		return mContent;
+	}
+	/**
+	 * @param content the content to set
+	 */
+	protected void setmContent(String content)
+	{
+		this.mContent = content;
 	}
 	
 	@Override

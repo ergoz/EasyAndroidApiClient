@@ -202,8 +202,28 @@ public class ApiClientBuilder implements BuilderInterface
 	{
 		String combine = "Base Uri: " + apiClient.getBaseUri() + " \n"
 				+ "Paths: " + strPaths() + " \n"
-				+ "Params: " + strParameters() + "\n";
+				+ "Params: " + strParameters() + "\n"
+				+ "Headers:" + strHeaders() + "\n"
+				+ "Content: " + apiClient.getContent() + "\n"
+				+ "Method: " + apiClient.getMethod().name() + "\n"
+				+ "Connection timeout:" + apiClient.getConnectionTimeout() + "\n"
+				+ "Socket timeout:" + apiClient.getSocketTimeout() + "\n";
+				
 		return combine;
+	}
+	
+	private String strHeaders()
+	{
+		String combinedHeaders = "";
+		if(apiClient.getHeaders()!=null)
+		{
+			for (NameValuePair p : apiClient.getHeaders())
+			{
+				combinedHeaders = combinedHeaders + "(" + p.getName() + "," + p.getValue() + ")" + "\n";
+			}
+			return combinedHeaders;
+		}
+		return combinedHeaders;
 	}
 	
 	private String strParameters()
@@ -238,6 +258,7 @@ public class ApiClientBuilder implements BuilderInterface
 		}
 		return "";
 	}
+	
 	private String strPaths()
 	{
 		if(apiClient.getPath()!=null)
