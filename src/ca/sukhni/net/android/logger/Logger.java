@@ -14,6 +14,11 @@ public class Logger
 
 	public static final String TAG = Logger.class.getSimpleName();
 
+	final public static void setDebugMode(DebugMode debugMode)
+	{
+		mode = debugMode;
+	}
+	
 	final public static void debug(String msg)
 	{
 		debug(LOG_TAG, msg);
